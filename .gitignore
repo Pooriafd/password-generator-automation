@@ -1,0 +1,58 @@
+# Java build files
+*.class
+*.jar
+*.war
+*.ear
+*.db
+*.log
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+dependency-reduced-pom.xml
+*.iml
+
+# Gradle
+.gradle/
+build/
+
+# Eclipse project files
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA project files
+.idea/
+*.iml
+out/
+*.ipr
+*.iws
+
+# NetBeans project files
+nbproject/private/
+nbbuild/
+dist/
+build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# User-specific files
+*.user
+*.suo
+
+# Logs
+logs/
+*.log
+
+# Other files
+*.tgz
+*.gz
+*.zip
