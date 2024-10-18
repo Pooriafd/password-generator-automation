@@ -31,6 +31,7 @@ The following scenarios ensure that the password generator functions correctly u
 3. **All Conditions**: Generate a password that includes all conditions (uppercase, lowercase, numbers, and special characters).
 4. **Lowercase Letters Only**: Generate a password containing only lowercase letters.
 5. **Numbers Only**: Generate a password with numbers only.
+6. **Copy button**: Press Copy button put generated password in clipboard.
 
 ### Edge Cases / Negative Test Scenarios
 These scenarios aim to validate the password generator's behavior under invalid conditions:

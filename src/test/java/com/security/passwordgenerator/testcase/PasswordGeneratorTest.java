@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.awt.*;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -122,6 +125,20 @@ public class PasswordGeneratorTest {
     }
 
     @Test
+    public void testPasswordCopy() throws AWTException, IOException, UnsupportedFlavorException {
+        String generatedPassword = passwordPage.getGeneratedPassword();
+        // Click the copy button
+        passwordPage.copyPassword();
+
+        // Verify the copied password
+        String copiedPassword = passwordPage.getClipboardContents();
+
+        // Assert that the copied password matches the generated password
+        Assert.assertEquals(copiedPassword, generatedPassword, "The copied password does not match the generated password.");
+    }
+
+
+    @Test
     public void testNoOptionsSelected() {
         // Set password length (e.g., 8 characters)
         passwordPage.dragToLength(DEFAULT_LENGTH);
@@ -144,7 +161,7 @@ public class PasswordGeneratorTest {
         passwordPage.setLength("90");
         Assert.assertEquals(passwordPage.getGeneratedPassword().length(), MAX_LENGTH, "Maximum length is not set correctly");
     }
-    
+
     @Test
     public void testUniquenessCheck() {
         // Set password length

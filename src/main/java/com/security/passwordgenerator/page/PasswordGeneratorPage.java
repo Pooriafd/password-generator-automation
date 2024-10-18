@@ -4,6 +4,11 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -15,6 +20,7 @@ public class PasswordGeneratorPage {
 
     // Locators
     By generateButton = By.xpath("//button[@title='Generate password']");
+    By copyButton = By.xpath("//button[@title='Copy password']");
 
     By passwordOutput = By.id("password");
     By lengthSlider = By.id("passwordLengthRange");
@@ -41,6 +47,11 @@ public class PasswordGeneratorPage {
 
         // Wait for elements to be ready
         waitForElements();
+    }
+
+    // Method to copy the password
+    public void copyPassword() {
+        driver.findElement(copyButton).click();
     }
 
     // Method to wait for all elements to be present before interacting
@@ -145,5 +156,11 @@ public class PasswordGeneratorPage {
         Pattern pattern = Pattern.compile("[!@#$%^&*(),.?\":{}|<>]");
         Matcher matcher = pattern.matcher(password);
         return matcher.find();
+    }
+
+    public String getClipboardContents() throws AWTException, IOException, UnsupportedFlavorException {
+        // Use AWT to retrieve text from the clipboard
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        return (String) clipboard.getData(DataFlavor.stringFlavor);
     }
 }
