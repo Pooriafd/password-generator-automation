@@ -12,6 +12,9 @@ import java.util.Set;
 public class PasswordGeneratorTest {
     PasswordGeneratorPage passwordPage;
     WebDriver driver;
+    private static final int DEFAULT_LENGTH = 8;
+    private static final int MIN_LENGTH = 6;
+    private static final int MAX_LENGTH = 32;
 
     @BeforeClass
     public void setup() {
@@ -28,10 +31,10 @@ public class PasswordGeneratorTest {
 
     @Test
     public void testGeneratePasswordWithSpecificLength() {
-        passwordPage.dragToLength(8);
+        passwordPage.dragToLength(DEFAULT_LENGTH);
         passwordPage.clickGenerateButton();
         String password = passwordPage.getGeneratedPassword();
-        Assert.assertEquals(password.length(), 8, "Password length should be 8.");
+        Assert.assertEquals(password.length(), DEFAULT_LENGTH, "Password length should be 8.");
     }
 
     @Test
@@ -61,7 +64,7 @@ public class PasswordGeneratorTest {
     @Test
     public void testGenerateLowercaseLettersOnly() {
         // Set password length (e.g., 8 characters)
-        passwordPage.dragToLength(8);
+        passwordPage.dragToLength(DEFAULT_LENGTH);
 
         // Uncheck uppercase, numbers, and symbols options
         passwordPage.checkAndSelect(passwordPage.uppercaseCheckbox, passwordPage.uppercaseLabel, false);
@@ -91,7 +94,7 @@ public class PasswordGeneratorTest {
     @Test
     public void testGenerateNumbersOnly() {
         // Set password length (e.g., 8 characters)
-        passwordPage.dragToLength(8);
+        passwordPage.dragToLength(DEFAULT_LENGTH);
 
         // Select numbers option
         passwordPage.checkAndSelect(passwordPage.numbersCheckbox, passwordPage.numbersLabel, true);
@@ -121,7 +124,7 @@ public class PasswordGeneratorTest {
     @Test
     public void testNoOptionsSelected() {
         // Set password length (e.g., 8 characters)
-        passwordPage.dragToLength(8);
+        passwordPage.dragToLength(DEFAULT_LENGTH);
 
 
         // Uncheck ALL
@@ -134,24 +137,18 @@ public class PasswordGeneratorTest {
                 "At least one option should be selected");
     }
 
-
     @Test
     public void testMinimumLengthViolation() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new IllegalArgumentException("Length must be between 6 and 32.");
-
-        }
         passwordPage.clearLength();
-        Assert.assertEquals(passwordPage.getGeneratedPassword().length(), 6, "Minimum length is not set correctly");
+        Assert.assertEquals(passwordPage.getGeneratedPassword().length(), MIN_LENGTH, "Minimum length is not set correctly");
         passwordPage.setLength("90");
-        Assert.assertEquals(passwordPage.getGeneratedPassword().length(), 32, "Maximum length is not set correctly");
+        Assert.assertEquals(passwordPage.getGeneratedPassword().length(), MAX_LENGTH, "Maximum length is not set correctly");
     }
+    
     @Test
     public void testUniquenessCheck() {
         // Set password length
-        passwordPage.dragToLength(8); // Example length
+        passwordPage.dragToLength(DEFAULT_LENGTH); // Example length
 
         // Select all options to include various character types
         passwordPage.selectAllOptions();
