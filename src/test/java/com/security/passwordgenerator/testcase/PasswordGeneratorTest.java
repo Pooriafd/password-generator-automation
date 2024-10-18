@@ -175,6 +175,6 @@ public class PasswordGeneratorTest {
 
     @AfterClass
     public void tearDown() {
-        //DriverManager.terminate();
+        DriverManager.terminate();
     }
 }
