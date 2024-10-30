@@ -3,12 +3,17 @@ package com.security.passwordgenerator.testcase;
 import com.security.passwordgenerator.config.DriverManager;
 import com.security.passwordgenerator.page.PasswordGeneratorPage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -62,6 +67,14 @@ public class PasswordGeneratorTest {
         Assert.assertTrue(passwordPage.containsUpperCase(password), "Password should contain at least one uppercase letter.");
         Assert.assertTrue(passwordPage.containsNumber(password), "Password should contain at least one number.");
         Assert.assertTrue(passwordPage.containsSpecialCharacter(password), "Password should contain at least one special character.");
+    }
+
+    @Test
+    public void testCopyOnClickTextVerification() {
+        passwordPage.copyPassword();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.textToBe(passwordPage.getCopyButton(), "Copied to clipboard!"));
+        Assert.assertEquals(passwordPage.getCopyPassword().getText(), "Copied to clipboard!", "Text verification failed for clipboard button");
     }
 
     @Test

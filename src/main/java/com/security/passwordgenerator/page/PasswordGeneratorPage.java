@@ -20,7 +20,7 @@ public class PasswordGeneratorPage {
 
     // Locators
     By generateButton = By.xpath("//button[@title='Generate password']");
-    By copyButton = By.xpath("//button[@title='Copy password']");
+    By copyButton = By.xpath("//button[@title='Copy Password']");
 
     By passwordOutput = By.id("password");
     By lengthSlider = By.id("passwordLengthRange");
@@ -54,6 +54,10 @@ public class PasswordGeneratorPage {
         driver.findElement(copyButton).click();
     }
 
+    public WebElement getCopyPassword(){
+        return driver.findElement(copyButton);
+    }
+
     // Method to wait for all elements to be present before interacting
     private void waitForElements() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(generateButton));
@@ -69,6 +73,10 @@ public class PasswordGeneratorPage {
     public void setLength(String length) {
         driver.findElement(lengthInput).sendKeys(length);
         driver.findElement(passwordLengthLabel).click();
+    }
+
+    public By getCopyButton() {
+        return copyButton;
     }
 
     public void dragToLength(int length) {
